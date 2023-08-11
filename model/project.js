@@ -12,7 +12,7 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    technologiesUsed: [],
+    technologiesUsed: [String],
     images: {
       type: String,
       required: true,
