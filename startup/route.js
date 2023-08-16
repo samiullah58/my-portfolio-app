@@ -3,6 +3,7 @@ const auth = require("../routes/auth");
 const project = require("../routes/project");
 const skill = require("../routes/skill");
 const education = require("../routes/education");
+const experience = require("../routes/experience");
 const express = require("express");
 const app = express();
 
@@ -13,4 +14,5 @@ module.exports = function (app) {
   app.use("/api/project", project);
   app.use("/api/skill", skill);
   app.use("/api/education", education);
+  app.use("/api/experience", experience);
 };
