@@ -51,4 +51,22 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const skill = await Skill.findById(req.params.id);
+  if (!skill)
+    return res
+      .status(404)
+      .json({ error: "Skill not found with the given id." });
+  res.send(skill);
+});
+
+router.delete("/:id", async (req, res) => {
+  const skill = await Skill.findByIdAndDelete(req.params.id);
+  if (!skill)
+    return res
+      .status(404)
+      .json({ error: "Skill not found with the given id." });
+  res.json({ message: "Skill deleted successfuly." });
+});
+
 module.exports = router;
