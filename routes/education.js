@@ -1,8 +1,9 @@
 const { Education, validate } = require("../model/education");
+const auth = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const education = await Education.find();
   res.json({ education });
 });
