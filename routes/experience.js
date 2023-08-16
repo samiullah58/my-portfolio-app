@@ -55,6 +55,10 @@ router.put("/:id", async (req, res) => {
       },
       { new: true }
     );
+    if (!experience)
+      return res
+        .status(404)
+        .json({ error: "Experience not found with the given id." });
 
     res.json({ message: "Experience has been updated successfuly." });
   } catch (error) {
