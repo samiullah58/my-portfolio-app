@@ -1,5 +1,6 @@
 const { Experience, validate } = require("../model/experience");
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const express = require("express");
 const router = express.Router();
 
@@ -8,7 +9,7 @@ router.get("/", auth, async (req, res) => {
   res.json({ experience });
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [auth, admin], async (req, res) => {
   try {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -39,7 +40,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", [auth, admin], async (req, res) => {
   try {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -67,7 +68,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", [auth, admin], async (req, res) => {
   const experience = await Experience.findById(req.params.id);
   if (!experience)
     return res
@@ -76,7 +77,7 @@ router.get("/:id", async (req, res) => {
   res.json({ experience });
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const experience = await Experience.findByIdAndDelete(req.params.id);
   if (!experience)
     return res

@@ -17,9 +17,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role: {
-    type: String,
-  },
+  isAdmin: Boolean,
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -28,7 +26,7 @@ userSchema.methods.generateAuthToken = function () {
       _id: this._id,
       userName: this.userName,
       email: this.email,
-      role: this.role,
+      isAdmin: this.isAdmin,
     },
     process.env.JWTPRIVATEKEY
   );
@@ -49,7 +47,7 @@ function validationUser(user) {
       .messages({
         "any.only": "{{#label}} does not match the password",
       }),
-    role: Joi.string(),
+    isAdmin: Joi.boolean(),
   });
   return schema.validate(user);
 }

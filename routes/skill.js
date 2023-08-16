@@ -1,5 +1,6 @@
 const { Skill, validate } = require("../model/skill");
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const express = require("express");
 const router = express.Router();
 
@@ -8,7 +9,7 @@ router.get("/", auth, async (req, res) => {
   res.json({ data: skill });
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [auth, admin], async (req, res) => {
   try {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -29,7 +30,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", [auth, admin], async (req, res) => {
   try {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -61,7 +62,7 @@ router.get("/:id", async (req, res) => {
   res.send(skill);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const skill = await Skill.findByIdAndDelete(req.params.id);
   if (!skill)
     return res
