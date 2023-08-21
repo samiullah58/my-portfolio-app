@@ -35,8 +35,7 @@ router.post("/", [auth, admin], async (req, res) => {
     await experience.save();
     res.json({ message: "Experience has been added successfuly." });
   } catch (error) {
-    // res.status(500).json({ error: "Internal server error." });
-    console.log(error);
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
@@ -68,7 +67,7 @@ router.put("/:id", [auth, admin], async (req, res) => {
   }
 });
 
-router.get("/:id", [auth, admin], async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const experience = await Experience.findById(req.params.id);
   if (!experience)
     return res

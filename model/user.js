@@ -1,5 +1,5 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
@@ -24,7 +24,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  isAdmin: Boolean,
+  role: {
+    type: String,
+  },
 });
 
 userSchema.methods.createPassword = async function (plainTextPassword) {
@@ -37,19 +39,6 @@ userSchema.methods.validatePassword = async function (condidatePassword) {
   return await bcrypt.compare(condidatePassword, this.password);
 };
 
-userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign(
-    {
-      _id: this._id,
-      userName: this.userName,
-      email: this.email,
-      isAdmin: this.isAdmin,
-    },
-    process.env.JWTPRIVATEKEY
-  );
-  return token;
-};
-
 const User = new mongoose.model("User", userSchema);
 
 function validationUser(user) {
@@ -57,14 +46,6 @@ function validationUser(user) {
     userName: Joi.string().required(),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
-    confirmPassword: Joi.string()
-      .valid(Joi.ref("password"))
-      .required()
-      .label("confirmPassword")
-      .messages({
-        "any.only": "{{#label}} does not match the password",
-      }),
-    isAdmin: Joi.boolean(),
   });
   return schema.validate(user);
 }

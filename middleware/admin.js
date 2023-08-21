@@ -1,7 +1,8 @@
-// const user = require("../model/signup");
+const user = require("../model/user");
 
 module.exports = function (req, res, next) {
-  if (!req.user.isAdmin)
-    return res.status(403).send("Access denied not an Admin.");
+  if (!req.user || req.user.role !== "admin") {
+    return res.status(403).send("Access denied.");
+  }
   next();
 };

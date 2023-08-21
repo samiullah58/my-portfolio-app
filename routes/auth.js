@@ -1,8 +1,6 @@
 const { User } = require("../model/user");
-// const validateAuth = require("../middleware/auth");
 const Token = require("../model/token");
 const nodemailer = require("nodemailer");
-const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const express = require("express");
@@ -10,9 +8,6 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
   try {
-    // const { error } = validateAuth(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
-
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -23,20 +18,27 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials!" });
     }
 
+    console.log(user.isAdmin);
+
     const refreshToken = jwt.sign(
-      { userId: user._id },
+      { userId: user._id, role: user.role },
       process.env.SECRET_KEY,
       {
         expiresIn: process.env.REFRESH_EXPIRE_TIME,
       }
     );
 
-    const accessToken = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-      expiresIn: process.env.ACCESS_EXPIRE_TIME,
-    });
+    const accessToken = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: process.env.ACCESS_EXPIRE_TIME,
+      }
+    );
 
     const refreshTokenDocument = new Token({
       userId: user._id,
+      role: user.role,
       tokenType: "refresh",
       tokenValue: refreshToken,
       expiry: new Date(
@@ -49,8 +51,7 @@ router.post("/login", async (req, res) => {
 
     res.json({ accessToken, refreshToken });
   } catch (error) {
-    console.log(error);
-    // res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
 

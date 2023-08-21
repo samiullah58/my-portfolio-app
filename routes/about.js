@@ -4,7 +4,7 @@ const admin = require("../middleware/admin");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const about = await About.find();
   res.json({ about });
 });
@@ -31,7 +31,8 @@ router.post("/", [auth, admin], async (req, res) => {
     await about.save();
     res.json({ message: "About has been added successfuly." });
   } catch (error) {
-    res.status(500).json({ error: "Internal server error." });
+    // res.status(500).json({ error: "Internal server error." });
+    console.log(error);
   }
 });
 
@@ -61,7 +62,7 @@ router.put("/:id", [auth, admin], async (req, res) => {
   }
 });
 
-router.get("/:id", [auth, admin], async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const about = await About.findById(req.params.id);
   if (!about)
     return res

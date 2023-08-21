@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-// const User = require("../model/user");
 require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
@@ -19,13 +18,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-// function validateAuth(User) {
-//   const schema = Joi.object({
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required(),
-//   });
-//   return schema.validate(User);
-// }
-
-// module.exports = validateAuth;
 module.exports = authMiddleware;

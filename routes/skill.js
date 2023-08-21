@@ -53,7 +53,7 @@ router.put("/:id", [auth, admin], async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const skill = await Skill.findById(req.params.id);
   if (!skill)
     return res
