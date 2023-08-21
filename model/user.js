@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
 const userSchema = new mongoose.Schema({
@@ -17,8 +18,24 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  verificationToken: String,
+  verificationTokenExpiry: Date,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   isAdmin: Boolean,
 });
+
+userSchema.methods.createPassword = async function (plainTextPassword) {
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  return await bcrypt.hash(plainTextPassword, salt);
+};
+
+userSchema.methods.validatePassword = async function (condidatePassword) {
+  return await bcrypt.compare(condidatePassword, this.password);
+};
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(

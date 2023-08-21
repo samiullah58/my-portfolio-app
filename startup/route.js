@@ -1,4 +1,4 @@
-const user = require("../routes/signup");
+const user = require("../routes/user");
 const auth = require("../routes/auth");
 const project = require("../routes/project");
 const skill = require("../routes/skill");

@@ -1,5 +1,7 @@
-const { User, validate } = require("../model/signup");
+const { User, validate } = require("../model/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const _ = require("lodash");
 const express = require("express");
 const router = express.Router();
@@ -24,13 +26,54 @@ router.post("/", async (req, res) => {
       role: "user",
     });
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
+    const hashedPassword = await user.createPassword(req.body.password);
+    user.password = hashedPassword;
+
+    const verificationToken = jwt.sign(
+      { userId: user._id },
+      process.env.SECRET_KEY,
+      { expiresIn: process.env.EMAIL_VERIFY_TIME }
+    );
+
+    user.verificationToken = verificationToken;
+    const expirationTimeInMilliseconds =
+      parseInt(process.env.EMAIL_VERIFY_TIME) * 24 * 60 * 60 * 1000;
+
+    user.verificationTokenExpiry = new Date(
+      Date.now() + expirationTimeInMilliseconds
+    );
 
     await user.save();
-    res.status(201).json({ message: "User registered successfuly" });
+
+    // sending email verify token to the client
+    const verificationLink = `http://localhost:3000/api/auth/verify/${verificationToken}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_ADDRESS,
+      to: "samiullahrashid4@gmail.com",
+      subject: "Account Verification",
+      text: `Please click the following link to verify your account: ${verificationLink}`,
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        res.status(500).json({ error: "Error sending verification email." });
+      } else {
+        console.log("Email sent:", info.response);
+        res.status(200).json({
+          message: "User added successfully. Varification email sent.",
+        });
+      }
+    });
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error.message });
   }
 });
 

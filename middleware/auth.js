@@ -1,16 +1,31 @@
 const jwt = require("jsonwebtoken");
+// const User = require("../model/user");
 require("dotenv").config();
 
-module.exports = function (req, res, next) {
+const authMiddleware = (req, res, next) => {
   const token = req.header("x-auth-token");
-  if (!token) return res.status(401).send("Access denied not valide toekn!");
+  if (!token) return res.status(401).json({ message: "Token missing." });
 
   try {
-    const decodded = jwt.verify(token, process.env.JWTPRIVATEKEY);
-
-    req.user = decodded;
+    const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
+    req.userId = verifyToken.userId;
     next();
   } catch (error) {
-    res.status(400).json({ error: "Invalid token." });
+    if (error.name === "TokenExpiredError") {
+      res.status(401).json({ message: "Token has expired." });
+    } else {
+      res.status(401).json({ message: "Invalid token." });
+    }
   }
 };
+
+// function validateAuth(User) {
+//   const schema = Joi.object({
+//     email: Joi.string().required().email(),
+//     password: Joi.string().required(),
+//   });
+//   return schema.validate(User);
+// }
+
+// module.exports = validateAuth;
+module.exports = authMiddleware;

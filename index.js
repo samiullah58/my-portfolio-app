@@ -1,10 +1,13 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const morgan = require("morgan");
 const express = require("express");
 const app = express();
 
 const dbUri = process.env.MONGODB_URI;
 const PORT = process.env.PORT;
+
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.send("This is my Portfolio Application");
