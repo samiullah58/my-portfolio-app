@@ -69,7 +69,7 @@ router.put("/:id", [auth, admin], async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const project = await Project.findById(req.params.id);
   if (!project)
     return res

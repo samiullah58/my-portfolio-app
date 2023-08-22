@@ -18,8 +18,6 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials!" });
     }
 
-    console.log(user.isAdmin);
-
     const refreshToken = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.SECRET_KEY,
@@ -134,7 +132,6 @@ router.put("/resetPassword/:token", async (req, res) => {
     const { newPassword, confirmNewPassword } = req.body;
 
     const user = await User.findById(decoded.userId);
-    console.log(user);
     if (!user) {
       res.status(404).json({ message: "User not found with the given token." });
     }

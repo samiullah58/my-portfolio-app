@@ -31,8 +31,7 @@ router.post("/", [auth, admin], async (req, res) => {
     await about.save();
     res.json({ message: "About has been added successfuly." });
   } catch (error) {
-    // res.status(500).json({ error: "Internal server error." });
-    console.log(error);
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 

@@ -16,6 +16,7 @@ module.exports = function (app) {
   app.use("/api/project", project);
   app.use("/api/skill", skill);
   app.use("/api/education", education);
+  app.use("/api/experience", experience);
   app.use("/api/about", about);
   app.use("/api/contact", contact);
 };

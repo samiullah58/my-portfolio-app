@@ -6,8 +6,8 @@ const authMiddleware = (req, res, next) => {
   if (!token) return res.status(401).json({ message: "Token missing." });
 
   try {
-    const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
-    req.userId = verifyToken.userId;
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    req.user = decoded;
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
