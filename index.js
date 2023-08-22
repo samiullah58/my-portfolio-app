@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const express = require("express");
+const routes = require("./src/routes/index");
 const app = express();
 
 const dbUri = process.env.MONGODB_URI;
@@ -13,7 +14,9 @@ app.get("/", (req, res) => {
   res.send("This is my Portfolio Application");
 });
 
-require("./startup/route")(app);
+// require("./startup/route")(app);
+app.use(express.json());
+app.use("/api", routes);
 
 async function connectMongodb() {
   try {
