@@ -30,7 +30,7 @@ const updateAboutById = async (req, res) => {
 };
 
 const getAboutById = async (req, res) => {
-  const about = await aboutService.getAboutById(req.params.aboutId);
+  const about = await aboutService.getAboutById(req.params.id);
   res.json({ about });
 };
 

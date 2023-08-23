@@ -8,7 +8,7 @@ router
   .get(aboutController.getAbout)
   .post(aboutController.createAbout);
 router
-  .route("/:aboutId")
+  .route("/:id")
   .put(aboutController.updateAboutById)
   .get(aboutController.getAboutById)
   .delete(aboutController.deleteAboutById);
