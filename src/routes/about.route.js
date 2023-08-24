@@ -1,16 +1,18 @@
 const express = require("express");
+const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 const aboutController = require("../controllers/about.controller");
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(aboutController.getAbout)
-  .post(aboutController.createAbout);
+  .get(auth, aboutController.getAbout)
+  .post(auth, admin, aboutController.createAbout);
 router
   .route("/:id")
-  .put(aboutController.updateAboutById)
-  .get(aboutController.getAboutById)
-  .delete(aboutController.deleteAboutById);
+  .put(auth, admin, aboutController.updateAboutById)
+  .get(auth, aboutController.getAboutById)
+  .delete(auth, admin, aboutController.deleteAboutById);
 
 module.exports = router;

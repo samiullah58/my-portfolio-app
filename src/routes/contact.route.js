@@ -1,17 +1,19 @@
 const express = require("express");
+const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 const contactController = require("../controllers/contact.controller");
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(contactController.getAllContact)
-  .post(contactController.createContact);
+  .get(auth, contactController.getAllContact)
+  .post(auth, admin, contactController.createContact);
 
 router
   .route("/:id")
-  .put(contactController.updateContact)
-  .get(contactController.getContactById)
-  .delete(contactController.deleteContactById);
+  .put(auth, admin, contactController.updateContact)
+  .get(auth, contactController.getContactById)
+  .delete(auth, admin, contactController.deleteContactById);
 
 module.exports = router;

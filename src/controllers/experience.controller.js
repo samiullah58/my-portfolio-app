@@ -3,7 +3,7 @@ const { experienceService } = require("../services/index");
 const getAllExperience = async (req, res) => {
   const experience = await experienceService.getAllExperience();
   if (experienceService) {
-    res.json(experience);
+    res.json({ experience });
   }
 };
 

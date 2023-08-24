@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
   res.send("This is my Portfolio Application");
 });
 
-// require("./startup/route")(app);
 app.use(express.json());
 app.use("/api", routes);
 

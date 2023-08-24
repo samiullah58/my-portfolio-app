@@ -1,5 +1,4 @@
 const httpStatus = require("http-status");
-const _ = require("lodash");
 const { userService } = require("../services");
 const ApiError = require("../utils/apiError");
 
@@ -27,7 +26,7 @@ const createUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const user = await userService.updateUser(req.params.id, req.body);
-    if (!user) {
+    if (user) {
       res.json({ message: "User updated successfuly" });
     }
   } catch (error) {

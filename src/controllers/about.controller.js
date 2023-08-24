@@ -17,16 +17,12 @@ const createAbout = async (req, res) => {
 };
 
 const updateAboutById = async (req, res) => {
-  const about = await aboutService.updateAboutById(
-    req.params.aboutId,
-    req.body
-  );
-  if (!about) {
-    throw new ApiError(httpStatus.NOT_FOUND, "not found");
+  const about = await aboutService.updateAboutById(req.params.id, req.body);
+  if (about) {
+    res.json({
+      message: "About has been updated successfuly.",
+    });
   }
-  res.json({
-    message: "About has been updated successfuly.",
-  });
 };
 
 const getAboutById = async (req, res) => {
@@ -35,8 +31,10 @@ const getAboutById = async (req, res) => {
 };
 
 const deleteAboutById = async (req, res) => {
-  const about = await aboutService.deleteAboutById(req.params.aboutId);
-  res.json({ message: "About has been deleted successfuly." });
+  const about = await aboutService.deleteAboutById(req.params.id);
+  if (about) {
+    res.json({ message: "About has been deleted successfuly." });
+  }
 };
 
 module.exports = {
