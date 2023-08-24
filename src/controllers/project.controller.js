@@ -1,9 +1,13 @@
 const { projectService } = require("../services/index");
 
 const getAllProject = async (req, res) => {
-  const project = await projectService.getAllProject();
-  if (project) {
-    res.json({ project });
+  try {
+    const project = await projectService.getAllProject();
+    if (project) {
+      res.json({ project });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -14,7 +18,8 @@ const createProject = async (req, res, next) => {
       res.json({ message: "Project added successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -28,21 +33,30 @@ const updateProjectById = async (req, res, next) => {
       res.json({ message: "Project updated successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const getProjectById = async (req, res) => {
-  const project = await projectService.getProjectById(req.params.id);
-  if (project) {
-    res.send(project);
+  try {
+    const project = await projectService.getProjectById(req.params.id);
+    if (project) {
+      res.send(project);
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const deleteProjectById = async (req, res) => {
-  const project = await projectService.deleteProjectById(req.params.id);
-  if (project) {
-    res.json({ message: "Project deleted successfuly." });
+  try {
+    const project = await projectService.deleteProjectById(req.params.id);
+    if (project) {
+      res.json({ message: "Project deleted successfuly." });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 

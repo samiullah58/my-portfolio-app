@@ -1,5 +1,7 @@
 require("dotenv").config();
+const { NOT_FOUND } = require("http-status");
 const { authService } = require("../services");
+const httpStatus = require("http-status");
 
 const userLogin = async (req, res, next) => {
   try {
@@ -10,7 +12,8 @@ const userLogin = async (req, res, next) => {
       refreshToken: tokens.refreshToken,
     });
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -20,7 +23,8 @@ const refreshToke = async (req, res, next) => {
     const accessToken = await authService.refreshToken({ refreshToken });
     res.json({ accessToken });
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -32,7 +36,13 @@ const resetPassword = async (req, res, next) => {
       message: `Reset Password Varification link has been sent to ${userPassword.to}.`,
     });
   } catch (error) {
-    next(error);
+    if (error.statusCode === httpStatus.NOT_FOUND) {
+      // User not found error
+      res.status(httpStatus.NOT_FOUND).json({ message: error.message });
+    } else {
+      // Other errors
+      next(error);
+    }
   }
 };
 
@@ -48,7 +58,8 @@ const resetPasswordToken = async (req, res, next) => {
       res.json({ message: "everything is updated" });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -60,7 +71,8 @@ const verifyToken = async (req, res, next) => {
       res.json({ message: "Account verified successfully." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 

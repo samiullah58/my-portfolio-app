@@ -1,8 +1,12 @@
 const { contactService } = require("../services/index");
 
 const getAllContact = async (req, res) => {
-  const contact = await contactService.getAllContact();
-  res.json({ contact });
+  try {
+    const contact = await contactService.getAllContact();
+    res.json({ contact });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 const createContact = async (req, res, next) => {
@@ -12,7 +16,8 @@ const createContact = async (req, res, next) => {
       res.json({ message: "Contact has been added successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -23,21 +28,30 @@ const updateContact = async (req, res, next) => {
       res.json({ message: "Contact has been updated successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const getContactById = async (req, res) => {
-  let contact = await contactService.getContactById(req.params.id);
-  if (contact) {
-    res.json({ contact });
+  try {
+    let contact = await contactService.getContactById(req.params.id);
+    if (contact) {
+      res.json({ contact });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const deleteContactById = async (req, res) => {
-  let contact = await contactService.deleteContactById(req.params.id);
-  if (contact) {
-    res.json({ message: "Contact has been deleted successfuly." });
+  try {
+    let contact = await contactService.deleteContactById(req.params.id);
+    if (contact) {
+      res.json({ message: "Contact has been deleted successfuly." });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 

@@ -55,8 +55,8 @@ const userLogin = async (userBody) => {
     };
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Something went wrong."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
@@ -94,8 +94,8 @@ const refreshToken = async (userBody) => {
     return newToken;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
@@ -146,8 +146,8 @@ const resetPassword = async (userBody) => {
     return mailOptions;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
@@ -199,7 +199,10 @@ const resetPasswordToken = async (userId, userBody) => {
 
     return true;
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, "Password reset failed.");
+    throw new ApiError(
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
+    );
   }
 };
 
@@ -232,8 +235,8 @@ const verifyToken = async (userId) => {
     return true;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };

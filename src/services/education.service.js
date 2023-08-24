@@ -37,8 +37,8 @@ const createEducation = async (userBody) => {
     return education;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
@@ -74,8 +74,8 @@ const updateEducation = async (userId, userBody) => {
     return education;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };

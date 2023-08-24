@@ -1,41 +1,58 @@
-const httpStatus = require("http-status");
-const { About, validate } = require("../models/about");
 const { aboutService } = require("../services");
-const ApiError = require("../utils/apiError");
 
-const getAbout = async (req, res) => {
-  const about = await aboutService.getAllAbout();
-  res.json({ about });
+const getAllAbout = async (req, res) => {
+  try {
+    const about = await aboutService.getAllAbout();
+    res.json({ about });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 const createAbout = async (req, res) => {
-  const about = await aboutService.createAbout(req.body);
-  res.json({ message: "About has been added successfuly." });
+  try {
+    const about = await aboutService.createAbout(req.body);
+    res.json({ message: "About has been added successfuly." });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 const updateAboutById = async (req, res) => {
-  const about = await aboutService.updateAboutById(req.params.id, req.body);
-  if (about) {
-    res.json({
-      message: "About has been updated successfuly.",
-    });
+  try {
+    const about = await aboutService.updateAboutById(req.params.id, req.body);
+    if (about) {
+      res.json({
+        message: "About has been updated successfuly.",
+      });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const getAboutById = async (req, res) => {
-  const about = await aboutService.getAboutById(req.params.id);
-  res.json({ about });
+  try {
+    const about = await aboutService.getAboutById(req.params.id);
+    res.json({ about });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 const deleteAboutById = async (req, res) => {
-  const about = await aboutService.deleteAboutById(req.params.id);
-  if (about) {
-    res.json({ message: "About has been deleted successfuly." });
+  try {
+    const about = await aboutService.deleteAboutById(req.params.id);
+    if (about) {
+      res.json({ message: "About has been deleted successfuly." });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 module.exports = {
-  getAbout,
+  getAllAbout,
   createAbout,
   updateAboutById,
   getAboutById,

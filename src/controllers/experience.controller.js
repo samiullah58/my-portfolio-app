@@ -1,9 +1,13 @@
 const { experienceService } = require("../services/index");
 
 const getAllExperience = async (req, res) => {
-  const experience = await experienceService.getAllExperience();
-  if (experienceService) {
-    res.json({ experience });
+  try {
+    const experience = await experienceService.getAllExperience();
+    if (experienceService) {
+      res.json({ experience });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -14,7 +18,8 @@ const createExperience = async (req, res, next) => {
       res.json({ message: "Experience has been added successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -28,23 +33,32 @@ const updateExperienceById = async (req, res, next) => {
       res.json({ message: "Experience has been updated successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const getExperienceById = async (req, res) => {
-  const experience = await experienceService.getExperienceById(req.params.id);
-  if (experience) {
-    res.json({ experience });
+  try {
+    const experience = await experienceService.getExperienceById(req.params.id);
+    if (experience) {
+      res.json({ experience });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const deleteExperienceById = async (req, res) => {
-  const experience = await experienceService.deleteExperienceById(
-    req.params.id
-  );
-  if (experience) {
-    res.json({ message: "Experience has been deleted successfuly." });
+  try {
+    const experience = await experienceService.deleteExperienceById(
+      req.params.id
+    );
+    if (experience) {
+      res.json({ message: "Experience has been deleted successfuly." });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 

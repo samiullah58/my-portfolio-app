@@ -39,8 +39,8 @@ const createProject = async (userBody) => {
     return project;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
@@ -77,8 +77,8 @@ const updateProjectById = async (userId, userBody) => {
     return project;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };

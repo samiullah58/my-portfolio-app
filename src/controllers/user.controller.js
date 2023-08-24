@@ -3,11 +3,15 @@ const { userService } = require("../services");
 const ApiError = require("../utils/apiError");
 
 const getAllUser = async (req, res) => {
-  const user = await userService.getAllUser();
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, "User not found.");
+  try {
+    const user = await userService.getAllUser();
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, "User not found.");
+    }
+    res.json({ user });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
-  res.json({ user });
 };
 
 const createUser = async (req, res, next) => {
@@ -19,7 +23,8 @@ const createUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -30,18 +35,27 @@ const updateUser = async (req, res, next) => {
       res.json({ message: "User updated successfuly" });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const getUserById = async (req, res) => {
-  const user = await userService.getUserById(req.params.id);
-  res.json({ user });
+  try {
+    const user = await userService.getUserById(req.params.id);
+    res.json({ user });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 const deleteUserById = async (req, res) => {
-  const user = await userService.deleteUserById(req.params.id);
-  res.json({ message: "User deleted successfully." });
+  try {
+    const user = await userService.deleteUserById(req.params.id);
+    res.json({ message: "User deleted successfully." });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 module.exports = {

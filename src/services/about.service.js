@@ -34,7 +34,10 @@ const createAbout = async (aboutBody) => {
     await about.save();
     return about;
   } catch (error) {
-    throw new ApiError(httpStatus.BAD_REQUEST, error.message);
+    throw new ApiError(
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
+    );
   }
 };
 
@@ -66,8 +69,8 @@ const updateAboutById = async (aboutId, updateBody) => {
     return about;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };

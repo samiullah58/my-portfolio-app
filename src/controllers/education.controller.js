@@ -1,8 +1,12 @@
 const { educationService } = require("../services/index");
 
 const getAllEducation = async (req, res) => {
-  const education = await educationService.getAllEducation();
-  res.json({ education });
+  try {
+    const education = await educationService.getAllEducation();
+    res.json({ education });
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
+  }
 };
 
 const createEducation = async (req, res, next) => {
@@ -12,7 +16,8 @@ const createEducation = async (req, res, next) => {
       res.json({ message: "Education has been added successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
@@ -26,21 +31,30 @@ const updateEducation = async (req, res, next) => {
       res.json({ message: "Education has been updated successfuly." });
     }
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const getEducationById = async (req, res) => {
-  const education = await educationService.getEducationById(req.params.id);
-  if (education) {
-    res.json({ education });
+  try {
+    const education = await educationService.getEducationById(req.params.id);
+    if (education) {
+      res.json({ education });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
 const deleteEducationById = async (req, res) => {
-  const education = await educationService.deleteEducationById(req.params.id);
-  if (education) {
-    res.json({ message: "Education has been deleted successfuly." });
+  try {
+    const education = await educationService.deleteEducationById(req.params.id);
+    if (education) {
+      res.json({ message: "Education has been deleted successfuly." });
+    }
+  } catch (error) {
+    res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 

@@ -30,8 +30,8 @@ const createSkill = async (userBody) => {
     return skill;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
@@ -59,8 +59,8 @@ const updateSkillById = async (userId, userBody) => {
     return skill;
   } catch (error) {
     throw new ApiError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      "Internal server error."
+      error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
     );
   }
 };
