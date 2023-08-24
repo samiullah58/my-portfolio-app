@@ -16,6 +16,12 @@ const createContact = async (req, res, next) => {
   }
 };
 
+console.log("hiii");
+console.log("hiii");
+console.log("hiii");
+console.log("hiii");
+console.log("hiii");
+
 module.exports = {
   getAllContact,
   createContact,
