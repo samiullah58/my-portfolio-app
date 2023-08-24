@@ -1,10 +1,8 @@
 const { Contact, validate } = require("../models/contact");
 const auth = require("../middlewares/auth");
 const admin = require("../middlewares/admin");
-const express = require("express");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
-const router = express.Router();
 
 // router.get("/", auth, async (req, res) => {
 //   const contact = await Contact.find();

@@ -1,10 +1,8 @@
 const { Education, validate } = require("../models/education");
 const auth = require("../middlewares/auth");
 const admin = require("../middlewares/admin");
-const express = require("express");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
-const router = express.Router();
 
 // router.get("/", auth, async (req, res) => {
 //   const education = await Education.find();
@@ -77,7 +75,6 @@ const createEducation = async (userBody) => {
       httpStatus.INTERNAL_SERVER_ERROR,
       "Internal server error."
     );
-    // console.log(error.message);
   }
 };
 
@@ -142,7 +139,6 @@ const updateEducation = async (userId, userBody) => {
       httpStatus.INTERNAL_SERVER_ERROR,
       "Internal server error."
     );
-    // console.log(error.message);
   }
 };
 

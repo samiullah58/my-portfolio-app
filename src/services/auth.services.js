@@ -3,10 +3,8 @@ const Token = require("../models/token");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const express = require("express");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
-const router = express.Router();
 
 // router.post("/login", async (req, res) => {
 //   try {
@@ -362,7 +360,6 @@ const resetPasswordToken = async (userId, userBody) => {
     return true;
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Password reset failed.");
-    // console.log(error.message);
   }
 };
 
@@ -428,7 +425,6 @@ const verifyToken = async (userId) => {
       httpStatus.INTERNAL_SERVER_ERROR,
       "Internal server error."
     );
-    // console.log(error.message);
   }
 };
 

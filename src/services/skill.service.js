@@ -1,10 +1,8 @@
 const { Skill, validate } = require("../models/skill");
 const auth = require("../middlewares/auth");
 const admin = require("../middlewares/auth");
-const express = require("express");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
-const router = express.Router();
 
 // router.get("/", auth, async (req, res) => {
 //   const skill = await Skill.find();
@@ -63,7 +61,6 @@ const createSkill = async (userBody) => {
       httpStatus.INTERNAL_SERVER_ERROR,
       "Internal server error."
     );
-    // console.log(error.message);
   }
 };
 
@@ -116,7 +113,6 @@ const updateSkillById = async (userId, userBody) => {
       httpStatus.INTERNAL_SERVER_ERROR,
       "Internal server error."
     );
-    console.log(error.message);
   }
 };
 

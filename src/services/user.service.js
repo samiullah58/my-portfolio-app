@@ -3,11 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const _ = require("lodash");
-const express = require("express");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
-const router = express.Router();
-router.use(express.json());
 
 // router.get("/", async (req, res) => {
 //   const user = await User.find();
@@ -155,7 +152,6 @@ const createUser = async (userBody) => {
       httpStatus.INTERNAL_SERVER_ERROR,
       "Internal server error."
     );
-    // console.log(error.message);
   }
 };
 
