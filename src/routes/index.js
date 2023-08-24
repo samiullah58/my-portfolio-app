@@ -3,6 +3,10 @@ const aboutRoute = require("./about.route");
 const authRoute = require("./auth.route");
 const userRoute = require("./user.route");
 const contactRoute = require("./contact.route");
+const educationRoute = require("./education.route");
+const experienceRoute = require("./experience.route");
+const projectRoute = require("./project.route");
+const skillRoute = require("./skill.route");
 
 const router = express.Router();
 
@@ -22,6 +26,22 @@ const defaultRoutes = [
   {
     path: "/contact",
     route: contactRoute,
+  },
+  {
+    path: "/education",
+    route: educationRoute,
+  },
+  {
+    path: "/experience",
+    route: experienceRoute,
+  },
+  {
+    path: "/project",
+    route: projectRoute,
+  },
+  {
+    path: "/skill",
+    route: skillRoute,
   },
 ];
 

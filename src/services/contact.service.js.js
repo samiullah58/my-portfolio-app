@@ -59,11 +59,10 @@ const createContact = async (userBody) => {
     await contact.save();
     return contact;
   } catch (error) {
-    // throw new ApiError(
-    //   httpStatus.INTERNAL_SERVER_ERROR,
-    //   "Internal server error."
-    // );
-    console.log(error.message);
+    throw new ApiError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      "Internal server error."
+    );
   }
 };
 
@@ -93,6 +92,42 @@ const createContact = async (userBody) => {
 //   }
 // });
 
+const updateContact = async (userId, userBody) => {
+  try {
+    const { error } = validate(userBody);
+    if (error) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Something is missing in the body."
+      );
+    }
+
+    const contact = await Contact.findByIdAndUpdate(
+      userId,
+      {
+        name: userBody.name,
+        email: userBody.email,
+        subject: userBody.subject,
+        message: userBody.message,
+      },
+      { new: true }
+    );
+
+    if (!contact) {
+      throw new ApiError(
+        httpStatus.NOT_FOUND,
+        "Contact not found with the given id."
+      );
+    }
+    return contact;
+  } catch (error) {
+    throw new ApiError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      "Internal server error."
+    );
+  }
+};
+
 // router.get("/:id", auth, async (req, res) => {
 //   const contact = await Contact.findById(req.params.id);
 //   if (!contact)
@@ -101,6 +136,17 @@ const createContact = async (userBody) => {
 //       .json({ error: "Contact not found with the given id." });
 //   res.json({ contact });
 // });
+
+const getContactById = async (userId) => {
+  const contact = await Contact.findById(userId);
+  if (!contact) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Contact not found with the given id."
+    );
+  }
+  return contact;
+};
 
 // router.delete("/:id", [auth, admin], async (req, res) => {
 //   const contact = await Contact.findByIdAndDelete(req.params.id);
@@ -111,9 +157,23 @@ const createContact = async (userBody) => {
 //   res.json({ message: "Contact has been deleted successfuly." });
 // });
 
+const deleteContactById = async (userId) => {
+  const contact = await Contact.findByIdAndDelete(userId);
+  if (!contact) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Contact not found with the given id."
+    );
+  }
+  return contact;
+};
+
 // module.exports = router;
 
 module.exports = {
   getAllContact,
   createContact,
+  updateContact,
+  getContactById,
+  deleteContactById,
 };
