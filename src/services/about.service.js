@@ -3,13 +3,19 @@ const httpStatus = require("http-status");
 const ApiError = require("../utils/apiError");
 
 const getAllAbout = async () => {
-  return About.find();
+  const about = await About.find();
+  return about;
 };
 
 const createAbout = async (aboutBody) => {
   try {
     const { error } = validate(aboutBody);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Something is missing in the body."
+      );
+    }
 
     const {
       introduction,
@@ -35,7 +41,12 @@ const createAbout = async (aboutBody) => {
 const updateAboutById = async (aboutId, updateBody) => {
   try {
     const { error } = validate(updateBody);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Something is missing in the body."
+      );
+    }
 
     const about = await About.findByIdAndUpdate(
       aboutId,

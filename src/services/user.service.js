@@ -141,7 +141,12 @@ const getUserById = async (userId) => {
 
 const deleteUserById = async (userId) => {
   const user = await User.findByIdAndDelete(userId);
-  if (!user) return res.status(404).send("User not found with the given id.");
+  if (!user) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "User not found with the given id."
+    );
+  }
 };
 
 module.exports = {

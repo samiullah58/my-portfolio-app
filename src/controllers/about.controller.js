@@ -5,9 +5,6 @@ const ApiError = require("../utils/apiError");
 
 const getAbout = async (req, res) => {
   const about = await aboutService.getAllAbout();
-  if (!about) {
-    res.status(404).json({ message: "about not found." });
-  }
   res.json({ about });
 };
 
