@@ -7,6 +7,7 @@ const educationRoute = require("./education.route");
 const experienceRoute = require("./experience.route");
 const projectRoute = require("./project.route");
 const skillRoute = require("./skill.route");
+const docsRoute = require("./docs.route");
 
 const router = express.Router();
 
@@ -45,7 +46,18 @@ const defaultRoutes = [
   },
 ];
 
+const devRoutes = [
+  {
+    path: "/docs",
+    route: docsRoute,
+  },
+];
+
 defaultRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
+
+devRoutes.forEach((route) => {
   router.use(route.path, route.route);
 });
 

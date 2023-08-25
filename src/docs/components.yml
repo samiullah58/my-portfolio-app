@@ -1,0 +1,263 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        userName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+      example:
+        id: 64e73416960431cb2f18d0bc
+        userName: sami ullah
+        email: fake@gmail.com
+        password: password1
+
+    About:
+      type: object
+      properties:
+        id:
+          type: string
+        introduction:
+          type: string
+        personalInformation:
+          type: object
+          properties:
+            name:
+              type: string
+            location:
+              type: string
+            email:
+              type: string
+              format: email
+        professionalSummary:
+          type: string
+        hobbiesAndInterest:
+          type: string
+      example:
+        id: 64e73052ffba92f3070f704a
+        introduction: this is about introduction
+        personalInformation:
+          name: Sami Ullah
+          location: Lahore
+          email: fake@gmail.com
+        professionalSummary: something about professional Summary
+        hobbiesAndInterest: Cricket
+
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        subject:
+          type: string
+        message:
+          type: string
+      example:
+        id: 64e73126ffba92f3070f7053
+        name: sami ullah
+        email: fake@gmail.com
+        subject: subject for Contact
+        message: message about the Contact
+
+    Education:
+      type: object
+      properties:
+        id:
+          type: string
+        institutionName:
+          type: string
+        degree:
+          type: string
+        fieldOfStudy:
+          type: string
+        graduationYear:
+          type: string
+        description:
+          type: string
+      example:
+        id: 64e731f2ffba92f3070f705e
+        institutionName: name of the institution
+        degree: name of the degree
+        fieldOfStudy: field of the study
+        graduationYear: year of the graduation
+        description: description of the Education
+
+    Experience:
+      type: object
+      properties:
+        id:
+          type: object
+        jobTitle:
+          type: string
+        companyName:
+          type: string
+        location:
+          type: string
+        employmentPeriod:
+          type: object
+          properties:
+            startDate:
+              type: string
+              format: date-time
+            endDate:
+              type: string
+              format: date-time
+        description:
+          type: string
+        responsibilities:
+          type: array
+          items:
+            type: string
+      example:
+        id: 64e732c0ff50e64843ea8643
+        companyName: name of the company
+        location: location of the company
+        employmentPeriod:
+          startDate: 2023-05-01T00:00:00.000+00:00
+          endDate: 2023-08-16T00:00:00.000+00:00
+        description: description of the Experience
+        responsibilities:
+          - no 1
+          - no 2
+          - no 3
+          - no 4
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        technologiesUsed:
+          type: array
+          items:
+            type: string
+        images:
+          type: string
+        projectUrl:
+          type: string
+        gitHubUrl:
+          type: string
+      example:
+        id: 64e73416960431cb2f18d0bd
+        title: title of the project
+        description: description of the project
+        technologiesUsed:
+          - no 1
+          - no 2
+          - no 3
+        images: url of the image
+        projectUrl: url of the project
+        gitHubUrl: url of the gitHub
+
+    Skill:
+      type: object
+      properties:
+        id:
+          type: string
+        skillName:
+          type: string
+        category:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        experienceLevel:
+          type: string
+      example:
+        id: 64e734c1960431cb2f18d0c6
+        skillName: name of the skill
+        category:
+          - no 1
+          - no 2
+          - no 3
+        description: description of the skill
+        experienceLevel: level of the skill like beginner
+
+    Token:
+      type: object
+      properties:
+        tokenValue:
+          type: string
+        expiry:
+          type: string
+          format: date-time
+      example:
+        tokenValue: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGU3MmU0ZWZlMDQ0NDhhNWZjOWRiZjciLCJyb2xlIjoidXNlciIsImlhdCI6MTY5Mjg3NDc5NSwiZXhwIjoxNjk1NDY2Nzk1fQ.KB05jiTutJOgsLrlys62tvKboxFYl03XXefNgAjHbcE
+        expiry: 2023-09-23T10:59:55.049+00:00
+
+    AuthTokens:
+      type: object
+      properties:
+        access:
+          $ref: "#/components/schemas/Token"
+        refresh:
+          $ref: "#/components/schemas/Token"
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+
+  responses:
+    DuplicateEmail:
+      description: Email already taken
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 400
+            message: Email already taken
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 401
+            message: Please authenticate
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 403
+            message: Forbidden
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 404
+            message: Not found
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

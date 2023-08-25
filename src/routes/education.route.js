@@ -12,7 +12,7 @@ router
 
 router
   .route("/:id")
-  .put(auth, admin, educationController.updateEducation)
+  .put(auth, admin, educationController.updateEducationById)
   .get(auth, educationController.getEducationById)
   .delete(auth, admin, educationController.deleteEducationById);
 

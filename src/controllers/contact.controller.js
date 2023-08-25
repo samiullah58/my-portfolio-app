@@ -21,7 +21,7 @@ const createContact = async (req, res, next) => {
   }
 };
 
-const updateContact = async (req, res, next) => {
+const updateContactById = async (req, res, next) => {
   try {
     const contat = await contactService.updateContact(req.params.id, req.body);
     if (contat) {
@@ -58,7 +58,7 @@ const deleteContactById = async (req, res) => {
 module.exports = {
   getAllContact,
   createContact,
-  updateContact,
+  updateContactById,
   getContactById,
   deleteContactById,
 };

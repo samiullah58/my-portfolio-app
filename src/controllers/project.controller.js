@@ -33,7 +33,6 @@ const updateProjectById = async (req, res, next) => {
       res.json({ message: "Project updated successfuly." });
     }
   } catch (error) {
-    // next(error);
     res.status(error.statusCode || 500).json({ message: error.message });
   }
 };

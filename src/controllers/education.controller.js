@@ -21,7 +21,7 @@ const createEducation = async (req, res, next) => {
   }
 };
 
-const updateEducation = async (req, res, next) => {
+const updateEducationById = async (req, res, next) => {
   try {
     const education = await educationService.updateEducation(
       req.params.id,
@@ -61,7 +61,7 @@ const deleteEducationById = async (req, res) => {
 module.exports = {
   getAllEducation,
   createEducation,
-  updateEducation,
+  updateEducationById,
   getEducationById,
   deleteEducationById,
 };

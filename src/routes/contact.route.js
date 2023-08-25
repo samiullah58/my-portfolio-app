@@ -12,7 +12,7 @@ router
 
 router
   .route("/:id")
-  .put(auth, admin, contactController.updateContact)
+  .put(auth, admin, contactController.updateContactById)
   .get(auth, contactController.getContactById)
   .delete(auth, admin, contactController.deleteContactById);
 

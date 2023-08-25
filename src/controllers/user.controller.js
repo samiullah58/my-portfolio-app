@@ -28,7 +28,7 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const updateUser = async (req, res, next) => {
+const updateUserById = async (req, res, next) => {
   try {
     const user = await userService.updateUser(req.params.id, req.body);
     if (user) {
@@ -61,7 +61,7 @@ const deleteUserById = async (req, res) => {
 module.exports = {
   getAllUser,
   createUser,
-  updateUser,
+  updateUserById,
   getUserById,
   deleteUserById,
 };
