@@ -20,51 +20,47 @@ module.exports = router;
 
 /**
  * @swagger
- * tags:
- *   name: users
- *   description: user managemant and retrieval
- */
-
-/**
- * @swagger
  * /api/user:
  *   post:
  *     summary: Create a user
- *     description: Everyone can create their account
  *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - userName
- *               - email
- *               - password
- *             properties:
- *               userName:
- *                 type: string
- *               email:
- *                 type: string
- *                 format: email
- *                 description: Must be unique
- *               password:
- *                 type: string
- *                 format: password
- *             example:
- *               userName: sami ullah
- *               email: fake@gmail.com
- *               password: password1
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: user
+ *         description: The user to create.
+ *         schema:
+ *           type: object
+ *           required:
+ *             - userName
+ *             - email
+ *             - password
+ *             - role
+ *           properties:
+ *             userName:
+ *               type: string
+ *             email:
+ *               type: string
+ *               format: email
+ *               description: Must be unique
+ *             password:
+ *               type: string
+ *               format: password
+ *             role:
+ *               type: string
+ *           example:
+ *             userName: fake name
+ *             email: fake@example.com
+ *             password: password1
+ *             role: user
  *     responses:
  *       "201":
- *         description: Created
+ *         description: User added successfully. Varification email sent.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/user'
+ *                $ref: '#/components/schemas/User'
  *       "400":
  *         $ref: '#/components/responses/DuplicateEmail'
  *       "401":
@@ -77,7 +73,7 @@ module.exports = router;
  *     description: Only admin can retrieve all users.
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []
+ *       - api_keyx: []
  *     responses:
  *       "200":
  *         description: OK
@@ -101,7 +97,7 @@ module.exports = router;
 
 /**
  *  @swagger
- * /user/{id}:
+ * /api/user/{id}:
  *   get:
  *     summary: Get a user
  *     description: Logged in users can retrieve only their information

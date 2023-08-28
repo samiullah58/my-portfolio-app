@@ -3,9 +3,10 @@ require("dotenv").config();
 
 const swaggerDef = {
   openApi: "3.0.0",
+  components: {},
   info: {
     title: "myPortfolio API documentation",
-    description: "This is my portfolio application for everone",
+    description: "This is my portfolio application for everyone",
     version,
   },
   servers: [

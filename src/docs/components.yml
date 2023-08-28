@@ -10,14 +10,13 @@ components:
         email:
           type: string
           format: email
-        password:
+        role:
           type: string
-          format: password
       example:
         id: 64e73416960431cb2f18d0bc
         userName: sami ullah
         email: fake@gmail.com
-        password: password1
+        role: user
 
     About:
       type: object
@@ -257,7 +256,7 @@ components:
             message: Not found
 
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    api_key:
+      type: apiKey
+      name: api_keyxx
+      in: header

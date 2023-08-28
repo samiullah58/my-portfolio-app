@@ -14,7 +14,7 @@ const getAllUser = async (req, res) => {
   }
 };
 
-const createUser = async (req, res, next) => {
+const createUser = async (req, res) => {
   try {
     const success = await userService.createUser(req.body);
     if (success) {
@@ -23,19 +23,17 @@ const createUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    // next(error);
     res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
 
-const updateUserById = async (req, res, next) => {
+const updateUserById = async (req, res) => {
   try {
     const user = await userService.updateUser(req.params.id, req.body);
     if (user) {
       res.json({ message: "User updated successfuly" });
     }
   } catch (error) {
-    // next(error);
     res.status(error.statusCode || 500).json({ message: error.message });
   }
 };
