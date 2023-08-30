@@ -17,3 +17,22 @@ router
   .delete(auth, admin, experienceController.deleteExperienceById);
 
 module.exports = router;
+
+/**
+ * @swagger
+ * tags:
+ *   name: Experience
+ *   description: Experience management and retrieval
+ */
+
+/**
+ * @swagger
+ * /api/experience:
+ *   get:
+ *     summary: Get all Experiences
+ *     description: Only admin can retrieve all Experience
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *
+ */
