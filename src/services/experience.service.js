@@ -1,4 +1,4 @@
-const { Experience, validate } = require("../models/experience");
+const { Experience, validate } = require("../models/experience.model");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
 

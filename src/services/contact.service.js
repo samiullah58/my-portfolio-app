@@ -1,4 +1,4 @@
-const { Contact, validate } = require("../models/contact");
+const { Contact, validate } = require("../models/contact.model");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
 

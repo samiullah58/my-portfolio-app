@@ -1,4 +1,4 @@
-const { About, validate } = require("../models/about");
+const { About, validate } = require("../models/about.model");
 const httpStatus = require("http-status");
 const ApiError = require("../utils/apiError");
 

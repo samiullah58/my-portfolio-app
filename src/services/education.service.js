@@ -1,4 +1,4 @@
-const { Education, validate } = require("../models/education");
+const { Education, validate } = require("../models/education.model");
 const ApiError = require("../utils/apiError");
 const httpStatus = require("http-status");
 

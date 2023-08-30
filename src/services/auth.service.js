@@ -1,5 +1,5 @@
-const { User } = require("../models/user");
-const Token = require("../models/token");
+const { User } = require("../models/user.model");
+const Token = require("../models/token.model");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");

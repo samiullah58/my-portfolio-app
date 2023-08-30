@@ -5,48 +5,9 @@
     "title": "myPortFolio-Application",
     "description": "Every one can create their portfolio in this Application"
   },
-  "tags": [
-    {
-      "name": "Users",
-      "description": "Get all users"
-    }
-  ],
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "paths": {
-    "/api/user": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get all users",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "400": {
-            "$ref": "#/definitions/DuplicateEmail"
-          },
-          "401": {
-            "$ref": "#/definitions/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/definitions/Forbidden"
-          },
-          "404": {
-            "$ref": "#/definitions/NotFound"
-          }
-        }
-      }
-    }
-  },
   "definitions": {
     "User": {
       "properties": {
@@ -60,6 +21,72 @@
           "type": "string",
           "format": "email"
         }
+      }
+    },
+    "About": {
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "personalInformation": {
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "professionalSummary": {
+          "type": "string"
+        },
+        "hobbiesAndInterest": {
+          "type": "string"
+        }
+      }
+    },
+    "Contact": {
+      "_id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string",
+        "format": "email"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "message": {
+        "type": "string"
+      }
+    },
+    "Education": {
+      "_id": {
+        "type": "string"
+      },
+      "institutionName": {
+        "type": "string"
+      },
+      "degree": {
+        "type": "string"
+      },
+      "fieldOfStudy": {
+        "type": "string"
+      },
+      "graduationYear": {
+        "type": "number"
+      },
+      "description": {
+        "type": "string"
       }
     },
     "DuplicateEmail": {
