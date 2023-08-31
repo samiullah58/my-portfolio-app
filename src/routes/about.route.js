@@ -109,8 +109,6 @@ module.exports = router;
  *       - in: path
  *         name: id
  *         required: true
- *         schema:
- *           type: string
  *         description: About id
  *     responses:
  *       "200":

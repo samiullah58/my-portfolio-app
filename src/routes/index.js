@@ -48,7 +48,7 @@ const defaultRoutes = [
 
 const devRoutes = [
   {
-    path: "/api-docs",
+    path: "/docs",
     route: docsRoute,
   },
 ];

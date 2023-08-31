@@ -65,7 +65,7 @@ const refreshToken = async (userBody) => {
   try {
     const { refreshToken } = userBody;
     if (!refreshToken) {
-      throw new ApiError(httpStatus.NOT_FOUND, "1st Invalid refresh token.");
+      throw new ApiError(httpStatus.NOT_FOUND, "Invalid refresh token.");
     }
     const newToken = jwt.verify(
       refreshToken,
@@ -74,7 +74,7 @@ const refreshToken = async (userBody) => {
         if (err) {
           throw new ApiError(
             httpStatus.UNAUTHORIZED,
-            "2nd Invalid refresh token."
+            "Error during decodding."
           );
         }
 

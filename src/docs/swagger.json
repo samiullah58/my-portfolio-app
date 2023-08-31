@@ -90,6 +90,9 @@
       }
     },
     "Experience": {
+      "_id": {
+        "type": "stirng"
+      },
       "jobTitle": {
         "type": "string"
       },
@@ -112,6 +115,82 @@
       },
       "responsibilities": {
         "type": "array"
+      }
+    },
+    "Project": {
+      "_id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "technologiesUsed": {
+        "type": "array"
+      },
+      "images": {
+        "type": "string"
+      },
+      "projectUrl": {
+        "type": "string"
+      },
+      "gitHubUrl": {
+        "type": "string"
+      }
+    },
+    "Skill": {
+      "_id": {
+        "type": "string"
+      },
+      "skillName": {
+        "type": "string"
+      },
+      "category": {
+        "type": "array"
+      },
+      "description": {
+        "type": "string"
+      },
+      "experienceLevel": {
+        "type": "string"
+      }
+    },
+    "Login": {
+      "email": {
+        "type": "string",
+        "format": "email"
+      },
+      "password": {
+        "type": "string",
+        "format": "password"
+      }
+    },
+    "Refresh": {
+      "refreshToken": {
+        "type": "string"
+      }
+    },
+    "ResetPassword": {
+      "email": {
+        "type": "string",
+        "format": "email"
+      }
+    },
+    "ResetPasswordToken": {
+      "newPassword": {
+        "type": "string",
+        "format": "password"
+      },
+      "confirmNewPassword": {
+        "type": "string",
+        "format": "password"
+      }
+    },
+    "Emailverify": {
+      "verificationToken": {
+        "type": "string"
       }
     },
     "DuplicateEmail": {

@@ -108,8 +108,6 @@ module.exports = router;
  *       - in: path
  *         name: id
  *         required: true
- *         schema:
- *           type: string
  *         description: Contact id
  *     responses:
  *       "200":
@@ -185,8 +183,6 @@ module.exports = router;
  *       - in: path
  *         name: id
  *         required: true
- *         schema:
- *           type: string
  *         description: Contact id
  *     responses:
  *       "200":

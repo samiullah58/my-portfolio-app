@@ -111,8 +111,6 @@ module.exports = router;
  *       - in: path
  *         name: id
  *         required: true
- *         schema:
- *           type: string
  *         description: Education id
  *     responses:
  *       "200":
