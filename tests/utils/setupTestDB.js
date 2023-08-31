@@ -1,9 +1,12 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
-const config = require("../../src/config/config");
 
 const setupTestDB = () => {
   beforeAll(async () => {
-    await mongoose.connect(config.mongoose.url, config.mongoose.options);
+    await mongoose.connect(process.env.MONGODB_TEST_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   });
 
   beforeEach(async () => {
