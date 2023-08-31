@@ -89,6 +89,31 @@
         "type": "string"
       }
     },
+    "Experience": {
+      "jobTitle": {
+        "type": "string"
+      },
+      "companyName": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string"
+      },
+      "employmentPeriod": {
+        "startDate": {
+          "type": "date"
+        },
+        "endDate": {
+          "type": "date"
+        }
+      },
+      "description": {
+        "type": "string"
+      },
+      "responsibilities": {
+        "type": "array"
+      }
+    },
     "DuplicateEmail": {
       "description": "Email already taken",
       "properties": {
