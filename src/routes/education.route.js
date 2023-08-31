@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(auth, educationController.getAllEducation)
+  .get(auth, admin, educationController.getAllEducation)
   .post(auth, admin, educationController.createEducation);
 
 router

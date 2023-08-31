@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(auth, contactController.getAllContact)
+  .get(auth, admin, contactController.getAllContact)
   .post(auth, admin, contactController.createContact);
 
 router

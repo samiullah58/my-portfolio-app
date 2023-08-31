@@ -13,7 +13,7 @@ router
 router
   .route("/:id")
   .put(auth, admin, experienceController.updateExperienceById)
-  .get(auth, admin, experienceController.getExperienceById)
+  .get(auth, experienceController.getExperienceById)
   .delete(auth, admin, experienceController.deleteExperienceById);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(auth, skillController.getAllSkill)
+  .get(auth, admin, skillController.getAllSkill)
   .post(auth, admin, skillController.createSkill);
 
 router

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(auth, projectController.getAllProject)
+  .get(auth, admin, projectController.getAllProject)
   .post(auth, admin, projectController.createProject);
 
 router
