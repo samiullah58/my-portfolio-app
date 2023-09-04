@@ -39,7 +39,7 @@ userSchema.methods.validatePassword = async function (condidatePassword) {
   return await bcrypt.compare(condidatePassword, this.password);
 };
 
-const User = new mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 function validationUser(user) {
   const schema = Joi.object({

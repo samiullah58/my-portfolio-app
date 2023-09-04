@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
     const success = await userService.createUser(req.body);
     if (success) {
       res.json({
-        message: "User added successfully. Varification email sent.",
+        message: "User added successfully. Verification email sent.",
       });
     }
   } catch (error) {

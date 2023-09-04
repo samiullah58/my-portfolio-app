@@ -1,39 +1,39 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const faker = require("faker");
+const { faker } = require("@faker-js/faker");
 const jwt = require("jsonwebtoken");
-const User = require("../../src/models/user.model");
+const { User } = require("../../src/models/user.model");
 
 const password = "password1";
 const salt = bcrypt.genSaltSync(10);
 const hashPassword = bcrypt.hashSync(password, salt);
 
 const userOne = {
-  _id: mongoose.Types.ObjectId(),
-  userName: faker.name.findName(),
-  email: faker.internet.email().tolowerCase(),
+  _id: new mongoose.Types.ObjectId(),
+  userName: faker.person.fullName(),
+  email: faker.internet.email().toLowerCase(),
   password,
   role: "user",
-  isEmailVarified: false,
+  isVerified: false,
 };
 
 const userTwo = {
-  _id: mongoose.Types.ObjectId(),
-  userName: faker.name.findName(),
-  email: faker.internet.email().tolowerCase(),
+  _id: new mongoose.Types.ObjectId(),
+  userName: faker.person.fullName(),
+  email: faker.internet.email().toLowerCase(),
   password,
   role: "user",
-  isEmailVarified: false,
+  isVerified: false,
 };
 
 const admin = {
-  _id: mongoose.Types.ObjectId(),
-  userName: faker.name.findName(),
-  email: faker.internet.email().tolowerCase(),
+  _id: new mongoose.Types.ObjectId(),
+  userName: faker.person.fullName(),
+  email: faker.internet.email().toLowerCase(),
   password,
   role: "admin",
-  isEmailVarified: false,
+  isVerified: false,
 };
 
 const insertUsers = async (users) => {
@@ -50,16 +50,10 @@ const token = jwt.sign(
   }
 );
 
-const accessToken = jwt.verify(token, process.env.SECRET_KEY, async (err) => {
-  if (err) {
-    console.error(err);
-  }
-});
-
 module.exports = {
   userOne,
   userTwo,
   admin,
   insertUsers,
-  accessToken,
+  token,
 };

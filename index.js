@@ -6,7 +6,6 @@ const express = require("express");
 const routes = require("./src/routes/index");
 const app = express();
 
-const dbUri = process.env.MONGODB_URI;
 const PORT = process.env.PORT;
 
 app.use(morgan("dev"));
@@ -18,6 +17,10 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(cors());
 app.use("/api", routes);
+const dbUri =
+  process.env.NODE_ENV === "test"
+    ? process.env.MONGODB_TEST_URI
+    : process.env.MONGODB_URI;
 
 async function connectMongodb() {
   try {
@@ -36,3 +39,5 @@ connectMongodb().then(() => {
     console.log(`Server is running on port: ${PORT}`);
   });
 });
+
+module.exports = app;
